@@ -125,6 +125,12 @@ When a movie is updated, return a response like this:
 ]
 ```
 
+**Add Delete to Movies**
+
+URL: `DELETE /api/v1/movies/1`
+
+When a movie is deleted, just return a HEAD response with a status code of 200.
+
 
 ### Promise Challenges
 
