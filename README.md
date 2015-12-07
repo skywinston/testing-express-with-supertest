@@ -126,6 +126,38 @@ When a movie is updated, return a response like this:
 ```
 
 
+### Promise Challenges
+
+**Show Movies / Characters under each Actor**
+
+URL: `GET /api/v1/actors/:id`
+
+Create a response like this:
+
+```json
+{
+  "id": 1,
+  "name": "Matt Damon",
+  "dob": "1970-10-08T06:00:00.000Z",
+  "appearances": [
+    {
+      "movie_id": 2,
+      "title": "Bourne Identity",
+      "release_year": 2002,
+      "character": "Jason Bourne"
+    },
+    {
+      "movie_id": 4,
+      "title": "Good Will Hunting",
+      "release_year": 1997,
+      "character": "Will Hunting"
+    }
+  ]
+}
+```
+
+Note: you'll have to make a nested call to `appearances` that _joins_ on movies.
+
 ---------
 
 Here are the steps taken to get knex installed and running in this app:
