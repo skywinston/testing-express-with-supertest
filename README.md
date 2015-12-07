@@ -9,6 +9,77 @@ knex migrate:latest
 knex seed:run movies
 ```
 
+## Query Challenges
+
+**Appearances with Actor and Movie Data**
+
+Update the appearances endpoint `/api/v1/appearances` to return the following by joining the two tables:
+
+```json
+[
+  {
+    "title": "Bourne Identity",
+    "release_year": 2002,
+    "name": "Matt Damon",
+    "dob": "1970-10-08T06:00:00.000Z",
+    "character": "Jason Bourne"
+  },
+  {
+    "title": "Good Will Hunting",
+    "release_year": 1997,
+    "name": "Matt Damon",
+    "dob": "1970-10-08T06:00:00.000Z",
+    "character": "Will Hunting"
+  },
+  {
+    "title": "Shawshank Redemption",
+    "release_year": 1994,
+    "name": "Morgan Freeman",
+    "dob": "1937-06-01T06:00:00.000Z",
+    "character": "Red"
+  },
+  {
+    "title": "Shawshank Redemption",
+    "release_year": 1994,
+    "name": "Tim Robbins",
+    "dob": "1958-10-16T06:00:00.000Z",
+    "character": "Andy Dufrane"
+  }
+]
+```
+
+**Actors Without Movies**
+
+Create an endpoint `/api/v1/actors/without-movies` that returns the following:
+
+```json
+[
+  {
+    "id": 8,
+    "name": "Jonah Hill",
+    "dob": "1983-12-20T07:00:00.000Z"
+  }
+]
+```
+
+**Movies Without Actors**
+
+Create an endpoint `/api/v1/movies/without-actors` that returns the following:
+
+```json
+[
+  {
+    "id": 7,
+    "title": "Back to the Future",
+    "release_year": 1985
+  }
+]
+```
+
+---------
+
+Here are the steps taken to get knex installed and running in this app:
+
 ## Installing Knex
 
 Taken largely from the docs at http://knexjs.org/
@@ -38,30 +109,29 @@ module.exports = {
 };
 ```
 
-On the command line:
+## Create Migrations
 
 ```
-knex migrate:make create_users
+knex migrate:make create_movies
 ```
 
 In the `migrations` directory there is now a single file.  Change it to:
 
 ```js
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('users', function (table) {
+  return knex.schema.createTable('movies', function (table) {
     table.increments();
-    table.string('email').notNullable().unique();
-    table.string('password_digest').notNullable();
-    table.timestamps();
+    table.string('title').notNullable().unique();
+    table.integer('release_year').notNullable();
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('users');
+  return knex.schema.dropTable('movies');
 };
 ```
 
-Then run it with:
+## Run Migrations
 
 ```
 knex migrate:latest
@@ -83,16 +153,20 @@ Then to use it, write this:
 var knex = require('../db/knex');
 
 router.get('/', function(req, res, next) {
-  knex.select().table('users').then(function (users) {
-    res.render('users/index', {users: users});
+  knex('movies').select().then(function (movies) {
+    res.json(movies)
   })
 })
 ```
 
 The rest of the knex methods from the docs should make sense now that you have this basic setup.
 
-## Seeds
+## Create Seeds
 
-Create a seed file with `knex seed:make somename`.
+Create a seed file with `knex seed:make movies`.
 
-Then fill in the auto-generated file with the data you'd like to insert.
+## Run Seeds
+
+```
+knex seed:run movies
+```
