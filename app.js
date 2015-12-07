@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var movies = require('./routes/movies');
 var actors = require('./routes/actors');
-var actors = require('./routes/appearances');
+var appearances = require('./routes/appearances');
 
 var app = express();
 
@@ -20,13 +20,13 @@ app.use(cookieParser());
 app.use(session({keys: [process.env.SESSION_KEY1, process.env.SESSION_KEY2]}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/', function (req, res, next) {
+  res.redirect('/api/v1');
+});
 app.use('/api/v1', index);
 app.use('/api/v1/movies', movies);
 app.use('/api/v1/actors', actors);
 app.use('/api/v1/appearances', actors);
-app.use('/', function (req, res, next) {
-  res.redirect('/api/v1');
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
