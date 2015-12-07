@@ -11,9 +11,17 @@ knex seed:run movies
 
 ## Query Challenges
 
+**Make a data model**
+
+Run `psql movie-actors` and inspect the tables with `\dt`, then inspect each table with `\d tablename`.
+
+Draw a model that shows all three tables and their relationships.
+
+_(check here in the solutions branch for the correct answer)_
+
 **Appearances with Actor and Movie Data**
 
-Update the appearances endpoint `/api/v1/appearances` to return the following by joining the two tables:
+Update the appearances endpoint `/api/v1/appearances` to return the following by joining `appearances` to `movies` and `actors`:
 
 ```json
 [
@@ -48,6 +56,8 @@ Update the appearances endpoint `/api/v1/appearances` to return the following by
 ]
 ```
 
+Note, you will have to use the `select` clause to limit the columns returned.
+
 **Actors Without Movies**
 
 Create an endpoint `/api/v1/actors/without-movies` that returns the following:
@@ -75,6 +85,46 @@ Create an endpoint `/api/v1/movies/without-actors` that returns the following:
   }
 ]
 ```
+
+### Modification Challenges
+
+**Add Create to Movies**
+
+URL: `POST /api/v1/movies`
+
+When a movie is created, return a response like this:
+
+```json
+[
+  {
+    "id": 54,
+    "title": "Some new movie name",
+    "release_year": 1999
+  }
+]
+```
+
+NOTE: in order to do this, you'll need to either:
+
+- use `returning('id')` (which returns an array of ids that were inserted, so you'll have to just grab the first one)
+- use `returning('*')` to return the entire record
+
+**Add Update to Movies**
+
+URL: `PATCH /api/v1/movies/1`
+
+When a movie is updated, return a response like this:
+
+```json
+[
+  {
+    "id": 54,
+    "title": "Some new movie name",
+    "release_year": 1999
+  }
+]
+```
+
 
 ---------
 
