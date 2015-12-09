@@ -25,7 +25,7 @@ app.get('/', function (req, res, next) {
 app.use('/api/v1', index);
 app.use('/api/v1/movies', movies);
 app.use('/api/v1/actors', actors);
-app.use('/api/v1/appearances', actors);
+app.use('/api/v1/appearances', appearances);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
