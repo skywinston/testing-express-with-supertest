@@ -4,6 +4,7 @@
 
 ```
 npm install
+npm install -g knex
 createdb movie-actors
 knex migrate:latest
 knex seed:run movies
