@@ -138,11 +138,11 @@ Each language/framework has their own conventions for running tests.  In Node it
 
 Now you can just run `npm test`.
 
-## Query Challenges
+## Test-Drive Some Code!!
 
-### Appearances with Actor and Movie Data
+### Show Appearances with Actor and Movie Data
 
-Update the appearances endpoint `/api/v1/appearances` to return the following by joining `appearances` to `movies` and `actors`.
+Using a TDD approach (writing tests first), update the appearances endpoint `/api/v1/appearances` to return the following by joining `appearances` to `movies` and `actors`.
 
 ```json
 [
@@ -196,9 +196,7 @@ This will require you to add setup data in a `beforeEach` block, and delete that
 
 You can do so by using regular database calls in your before/after functions.
 
-## Modification Challenges
-
-#### Add Create to Movies
+### Add Create to Movies
 
 URL: `POST /api/v1/movies`
 
@@ -219,7 +217,22 @@ NOTE: in order to do this, you'll need to either:
 - use `returning('id')` (which returns an array of ids that were inserted, so you'll have to just grab the first one)
 - use `returning('*')` to return the entire record
 
-**Add Update to Movies**
+**Testing Notes**
+
+You'll have to send JSON data from Supertest, like so:
+
+```js
+request
+  .post("/api/v1/movies")
+  .send({some: "data"})
+  .expect(200)
+  .expect(function(req){
+    // write some assertions
+    done()
+  });
+```
+
+### Add Update to Movies
 
 URL: `PATCH /api/v1/movies/1`
 
@@ -252,6 +265,20 @@ When a movie is deleted, just return a HEAD response with a status code of 200.
 How will you test that the movie was in fact deleted?
 
 One technique is to try to find that movie by its ID after running the test.
+
+### Add a Column
+
+Add a column to movies called `rating`.  Test-drive this change by first altering the tests for creating a movie, then test-drive the changes to `GET /api/v1/movies` as well.
+
+**Testing Notes**
+
+You will have to:
+
+- write a migration
+- run the migration on your test database
+- make the tests pass
+- run the migration on your dev database
+- change more than one test to accommodate
 
 ---------
 
