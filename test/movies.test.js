@@ -15,12 +15,12 @@ describe("GET to /movies", function () {
         })
     });
 
-    it("returns a 200 status code and no data", function (done) {
+    it("returns a 200 status code and movie data", function (done) {
         request.get('/api/v1/movies')
             .expect(200)
             .end(function (err, res) {
                 if (err) return done(err);
-                expect(res.body.length).to.eq(0);
+                expect(res.body.length).to.eq(1);
                 done();
             })
     });
