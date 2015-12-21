@@ -9,6 +9,15 @@ module.exports = {
     }
   },
 
+  test: {
+    client: 'postgresql',
+    connection: 'postgres://localhost/movie-actors-test',
+    pool: {
+      min: 1,
+      max: 1
+    }
+  },
+
   production: {
     client: 'postgresql',
     connection: process.env.DATABASE_URL,
