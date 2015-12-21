@@ -10,4 +10,14 @@ router.get('/', function(req, res, next) {
   })
 });
 
+router.post('/', function (req, res, next) {
+    knex('movies').insert(req.body).returning('*')
+    .then(function (movies) {
+        res.json(movies)
+    })
+    .catch(function (err) {
+        next(new Error(err));
+    })
+});
+
 module.exports = router;

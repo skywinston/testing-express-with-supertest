@@ -24,5 +24,19 @@ describe("GET to /movies", function () {
                 done();
             })
     });
+
+    it("can create a movie", function (done) {
+        request.post('/api/v1/movies').send({
+            title: 'The Last Samurai',
+            release_year: 2003
+        })
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                expect(res.body[0].title).to.eq('The Last Samurai');
+                expect(res.body[0].release_year).to.eq(2003);
+                done();
+            })
+    })
 });
 
