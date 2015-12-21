@@ -2,7 +2,7 @@ module.exports = {
 
   development: {
     client: 'postgresql',
-    connection: 'postgres://localhost/movie-actors',
+    connection: 'postgres://localhost/movie-actors-development',
     pool: {
       min: 1,
       max: 1
